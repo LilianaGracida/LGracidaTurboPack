@@ -15,6 +15,8 @@
 
 <div style="float:right;">
     <button class="bg-info" onclick="Agregar()">Agregar</button>
+    <br />
+    <button class="bg-danger" onclick="Limpiar()">Limpiar</button>
 </div>
 <br />
 <body>
@@ -29,31 +31,37 @@
             </tr>
         </thead>
         <tbody>
+
         </tbody>
     </table>
-    <script>
-
-    </script>
 </body>
 
+<script type="text/javascript">
+    function Agregar() {
+        $.ajax({
+            url: 'https://randomuser.me/api/',
+            method: "GET",
+            dataType: 'json',
+            success: function (results) {
+                var tableString = '<tr>' +
+                    '<td>' + results.results[0].name.first + '</td>' +
+                    '<td>' + results.results[0].email + '</td>' +
+                    '<td>' + results.results[0].location.street.name + '</td>' +
+                    '<td>' + results.results[0].gender + '</td>' +
+                    '<td>' + '<img src="' + results.results[0].picture.large + '"/>' + '</td>' +
+                    '</tr>';
 
-    <script type="text/javascript">
-        function Agregar() {
-            $.ajax({
-                    url: 'https://randomuser.me/api/',
-                    method: "GET",
-                    dataType: 'json',
-                    success: function (results) {
-                        var tableString = "";
-                        $.each(results, function (i, results) {
-                           
-                            tableString = "<tr><td>" +  results[0].name.title + "</td></tr>";
-                        });
-                        $('#Table tbody').append(tableString);
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-            });
+                $('#Table tbody').append(tableString);
+            },
+            error: function (error) {
+                console.log(error);
+            }
+        });
+    }
+</script>
+
+<script type="text/javascript">
+    function Limpiar() {
+        $('#Table tbody').empty();
         }
-    </script>
+</script>
