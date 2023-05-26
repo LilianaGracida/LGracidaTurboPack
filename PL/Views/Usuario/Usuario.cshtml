@@ -46,7 +46,8 @@
                     success: function (results) {
                         var tableString = "";
                         $.each(results, function (i, results) {
-                            tableString = "<tr><td>" +  results[0].gender + "</td></tr>";
+                           
+                            tableString = "<tr><td>" +  results[0].name.title + "</td></tr>";
                         });
                         $('#Table tbody').append(tableString);
                     },
